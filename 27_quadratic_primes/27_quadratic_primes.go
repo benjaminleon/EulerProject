@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math"
-	"sort"
 )
 
 func main() {
@@ -11,7 +10,7 @@ func main() {
 
 	best := best{}
 
-	for a := -100; a <= 100; a++ {
+	for a := -1000; a <= 1000; a++ {
 		for _, b := range getPrimes(1000) {
 			n := 0
 			for {
@@ -52,7 +51,7 @@ func getPrimes(n int) []int {
 	}
 	// fmt.Println(primes)
 
-	for _, number := range numbers[1 : len(numbers)/2] {
+	for _, number := range numbers[1:] {
 		val, ok := primes[number]
 		if val == false && ok == true { // This has already been marked as a non-prime
 			continue
@@ -77,7 +76,7 @@ func getPrimes(n int) []int {
 		}
 	}
 
-	sort.Ints(ps)
+	// sort.Ints(ps)
 	return ps
 }
 
