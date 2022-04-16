@@ -46,12 +46,13 @@ func getPrimes(n int) []int {
 	primes := map[int]bool{}
 
 	numbers := make([]int, n) // [1, 2, 3, 4, 5, 6, 7, 8, 9...]
-	for i := 1; i < n; i++ {
+	for i := 1; i <= n; i++ {
 		numbers[i-1] = i
 	}
 	// fmt.Println(primes)
 
 	for _, number := range numbers[1:] {
+		// fmt.Printf("Looking at %v: \n", number)
 		val, ok := primes[number]
 		if val == false && ok == true { // This has already been marked as a non-prime
 			continue
@@ -87,7 +88,7 @@ func isPrime(n int) bool {
 	// fmt.Printf("Checking if %v is a prime\n", n)
 	sqrtN := int(math.Floor(math.Sqrt(float64(n))))
 	// fmt.Println("sqrtN:", sqrtN)
-	for _, p := range getPrimes(sqrtN) {
+	for _, p := range getPrimes(sqrtN) { // [2, 3, 5, 7, 11...]
 		if n%p == 0 {
 			return false
 		}
