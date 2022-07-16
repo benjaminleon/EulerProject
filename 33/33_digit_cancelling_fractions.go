@@ -20,7 +20,7 @@ type fraction struct {
 }
 
 func main() {
-	fractions := []fraction{}
+	var fractions []fraction
 	fr := fraction{a: 1, b: 1}
 	for a := 10.0; a < 100; a++ {
 		for b := 10.0; b < 100; b++ {
