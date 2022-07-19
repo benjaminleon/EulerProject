@@ -6,6 +6,9 @@ func IsPrime(n int) bool {
 	if n < 1 {
 		return false
 	}
+	if n == 2 || n == 3 {
+		return true
+	}
 	// fmt.Printf("Checking if %v is a prime\n", n)
 	sqrtN := int(math.Floor(math.Sqrt(float64(n))))
 	// fmt.Println("sqrtN:", sqrtN)
