@@ -32,42 +32,32 @@ func main() {
 }
 
 func isTruncatablePrime(nr int) bool {
-	truncatedLeft := nr
-	for {
-		truncatedLeft = removeDigitFromLeft(truncatedLeft)
-		if !primes.IsPrime(truncatedLeft) {
-			return false
-		}
-		if truncatedLeft < 10 {
-			break
-		}
-
-	}
-	truncatedRight := nr
-	for {
-		truncatedRight = removeDigitFromRight(truncatedRight)
-		if !primes.IsPrime(truncatedRight) {
-			return false
-		}
-		if truncatedRight < 10 {
-			break
+	for _, stripFunc := range []func(string) string{fromLeft, fromRight} {
+		truncatedNr := nr
+		for {
+			truncatedNr = removeDigit(stripFunc, truncatedNr)
+			if !primes.IsPrime(truncatedNr) {
+				return false
+			}
+			if truncatedNr < 10 {
+				break
+			}
 		}
 	}
 	return true
 }
 
-func removeDigitFromLeft(nr int) int {
-	str := fmt.Sprintf("%d", nr)
-	truncatedNr, err := strconv.Atoi(str[1:])
-	if err != nil {
-		panic(err)
-	}
-	return truncatedNr
+func fromLeft(str string) string {
+	return str[1:]
 }
 
-func removeDigitFromRight(nr int) int {
+func fromRight(str string) string {
+	return str[:len(str)-1]
+}
+
+func removeDigit(stripFunc func(string) string, nr int) int {
 	str := fmt.Sprintf("%d", nr)
-	truncatedNr, err := strconv.Atoi(str[:len(str)-1])
+	truncatedNr, err := strconv.Atoi(stripFunc(str))
 	if err != nil {
 		panic(err)
 	}
