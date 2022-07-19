@@ -13,17 +13,14 @@ func main() {
 	for i := 1; i < 1000000; i++ {
 		b := fmt.Sprintf("%b", i)
 		d := fmt.Sprintf("%d", i)
-		//fmt.Println(d, b)
 		if isPalindrome(d) && isPalindrome(b) {
 			sumOfPalindromes += i
-			//fmt.Printf("Found double based palindrome: %d, %s\n", i, b)
 		}
 	}
 	fmt.Printf("The sum of the double based palindromes is %d", sumOfPalindromes)
 }
 
 func isPalindrome(number string) bool {
-	//fmt.Printf("verifying %s\n", number)
 	for i := 0; i < len(number)/2; i++ {
 		if string(number[i]) != string(number[len(number)-1-i]) {
 			return false
