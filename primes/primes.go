@@ -1,6 +1,9 @@
 package primes
 
-import "math"
+import (
+	"math"
+	"sort"
+)
 
 func IsPrime(n int) bool {
 	if n < 1 {
@@ -61,4 +64,10 @@ func GetPrimes(n int) []int {
 
 	// sort.Ints(ps)
 	return ps
+}
+
+func GetSortedPrimes(n int) []int {
+	primes := GetPrimes(n)
+	sort.Ints(primes)
+	return primes
 }
