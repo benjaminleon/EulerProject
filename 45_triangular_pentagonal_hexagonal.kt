@@ -1,5 +1,4 @@
 /*
-
 Compile with `kotlinc my_file.kt -include-runtime -d my_app.jar`
 Run with `java -jar my_app.jar``
 
@@ -18,11 +17,13 @@ import kotlin.math.floor
 
 fun main() {
     var count = 0
-    for (triangle in getTrianglesFrom(286)) {
+    // If iterating over the dense triangle series, we have to look at 55100 candidates before finding the answer.
+    // By iterating over the sparse hexagonal series, 27550 candidates is sufficient.
+    for (hexagon in getHexagonalsFrom(144)) {
         count++
-        if (isPentagonal(triangle) && isHexagonal(triangle)) {
-            println("Examined $count triangles")
-            println("The answer is $triangle")
+        if (isPentagonal(hexagon) && isTriangle(hexagon)) {
+            println("Examined $count hexagons")
+            println("The answer is $hexagon")
             break
         }
     }
@@ -32,6 +33,15 @@ fun getTrianglesFrom(startPoint: Long) = sequence {
     var i = startPoint
     while (true) {
         yield(i*(i+1)/2)
+        i++
+    }
+}
+
+
+fun getHexagonalsFrom(startPoint: Long) = sequence {
+    var i = startPoint
+    while (true) {
+        yield(i*(2*i-1))
         i++
     }
 }
@@ -64,7 +74,21 @@ n - 1/4 = sqrt(k/2 + 1/16)
 n = sqrt(k/2 + 1/16) + 1/4
 */
 fun isHexagonal(nr: Long): Boolean {
-    
     val result = sqrt(nr/2.0 + 1.0/16) + 0.25
+    return result - floor(result) < 0.00001
+}
+
+/*
+The number is a triangle if the equation can be solved for an integer n
+
+n(n + 1)/2 = k
+n^2 + n = 2k
+n^2 + n + 1/4 = 2k + 1/4
+(n + 1/2)^2 = 2k + 1/4
+n + 1/2 = sqrt(2k + 1/4)
+n = sqrt(2k + 1/4) - 1/2
+*/
+fun isTriangle(nr: Long): Boolean {
+    val result = sqrt(2.0*nr + 0.25) - 0.5
     return result - floor(result) < 0.00001
 }
