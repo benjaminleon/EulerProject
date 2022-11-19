@@ -13,19 +13,16 @@ and D = |Pk − Pj| is minimised; what is the value of D?
 
 fn main() {
     let v = get_pentagonal_nrs(5000);
-    for i in &v {
+    'outer: for i in &v {
         for j in &v {
-            match v.binary_search(&(i + j)) {
-                Ok(_u) => {
-                    match v.binary_search(&(j - i)) {
-                        Ok(_u) => {
-                            println!("Found a match with i: {}, j: {}, |i - j|: {}", i, j, (i - j).abs());
-                        }
-                        Err(_e) => {
-                        }
+            if let Ok(_u) = v.binary_search(&(i+j)){
+                match v.binary_search(&(j - i)) {
+                    Ok(_u) => {
+                        println!("Found a match with i: {}, j: {}, |i - j|: {}", i, j, (i - j).abs());
+                        break 'outer;
                     }
-                }
-                Err(_e) => {
+                    Err(_e) => {
+                    }
                 }
             }
         }
