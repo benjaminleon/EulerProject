@@ -17,11 +17,11 @@ fn main() {
         for j in &v {
             if let Ok(_u) = v.binary_search(&(i+j)){
                 match v.binary_search(&(j - i)) {
-                    Ok(_u) => {
+                    Ok(_) => {
                         println!("Found a match with i: {}, j: {}, |i - j|: {}", i, j, (i - j).abs());
                         break 'outer;
                     }
-                    Err(_e) => {
+                    Err(..) => {
                     }
                 }
             }
